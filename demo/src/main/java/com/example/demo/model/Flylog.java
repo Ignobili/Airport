@@ -26,6 +26,10 @@ public class Flylog {
     @Column(name = " airport_slot_id ")
     private Long airport_slot_id;
 
+    public Flylog(FlylogType flylogType, Long airportIdd, Long aircraftId) {
+
+    }
+
     @Override
     public String toString() {
         return "Flylog{" +
