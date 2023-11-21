@@ -13,6 +13,7 @@ import com.example.demo.service.airportslot.AirportSlotService;
 import com.example.demo.service.flylog.FlylogService;
 import com.example.demo.service.runway.RunwayService;
 import com.example.demo.util.AirportUtil;
+import com.example.demo.util.RequestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,9 +38,9 @@ public class AirportServiceImpl implements AirportService {
 
     @Override
     public void createFlight(Long airportId, AirRequest airRequest) {
-
+        new RequestValidator(airRequest).validate();
         Airport airport = airportRepository.findByAirportId(airportId).orElseThrow(IdNotFoundException:: new);
-        Aircraft aircraft  = aircraftService.findAircraft(airRequest.getAircraftRequeset().getSerialNumber());
+        Aircraft aircraft = aircraftService.findAircraft(airRequest.getAircraftRequeset().getSerialNumber());
         if(aircraft == null){
             aircraft = aircraftService.create(airRequest.getAircraftRequeset());
             System.out.println("First time visiting");
